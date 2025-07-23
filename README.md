@@ -1,411 +1,332 @@
 # MCP Security Scanner
 
-A comprehensive Python-based security scanner specifically designed for Model Context Protocol (MCP) servers. The scanner detects vulnerabilities through both static analysis using pattern matching and AI-powered analysis using OpenAI's API.
+A comprehensive security scanner for Model Context Protocol (MCP) servers with AI-powered vulnerability detection and a modern web interface.
 
 ![License](https://img.shields.io/badge/license-MIT-blue.svg)
 ![Python](https://img.shields.io/badge/python-3.8+-blue.svg)
+![React](https://img.shields.io/badge/react-18+-blue.svg)
 ![Status](https://img.shields.io/badge/status-stable-green.svg)
 
 ## 🚀 Features
 
-### Security Detection
-- **10+ Vulnerability Types**: Command injection, SQL injection, tool poisoning, authentication issues, credential management, file security, input validation, prompt injection, cryptography issues, and network security
-- **Pattern-Based Static Analysis**: 100+ regex patterns for detecting known vulnerability patterns
-- **AI-Powered Analysis**: Multiple AI provider support (OpenAI, Claude, Gemini) for intelligent code analysis and vulnerability detection
-- **MCP-Specific Detection**: Specialized rules for MCP tool poisoning, prompt injection, and configuration vulnerabilities
+### 🔍 Comprehensive Security Analysis
+- **57+ Vulnerability Types**: Complete coverage of static analysis and AI-specific attack vectors
+- **Static Analysis**: Pattern-based detection with 100+ regex patterns for known vulnerabilities
+- **AI-Powered Analysis**: Multi-provider support (OpenAI, Claude, Gemini) for intelligent threat detection
+- **AI Security Specialization**: Advanced detection of prompt injection, jailbreak attacks, model manipulation, and 30+ AI-specific threats
 
-### Analysis Capabilities
-- **Parallel Processing**: Multi-threaded file scanning for performance
-- **Confidence Scoring**: Each vulnerability includes a confidence score (0-100%)
-- **CWE Mapping**: Vulnerabilities mapped to Common Weakness Enumeration (CWE) standards
-- **Severity Classification**: Critical, High, Medium, Low severity levels
+### 🧠 AI Attack Detection
+- **Prompt Injection**: Direct instruction override, context poisoning, system prompt leakage
+- **Jailbreak Techniques**: DAN, STAN, AIM variations and role-playing attacks
+- **Model Manipulation**: Adversarial examples, model inversion, extraction attacks
+- **Training Data Attacks**: Data poisoning, membership inference, backdoor injection
+- **Advanced Techniques**: Unicode obfuscation, chain-of-thought manipulation, federated learning attacks
 
-### Output & Reporting
-- **Multiple Formats**: JSON, Markdown, and Rich table outputs
-- **Detailed Reports**: Comprehensive vulnerability details with recommendations
-- **File Filtering**: Smart gitignore-style pattern exclusion
-- **Progress Tracking**: Real-time scanning progress with Rich UI
+### 🖥️ Modern Web Interface
+- **Neural Threat Matrix Dashboard**: Real-time visualization with AI neural network simulation
+- **Interactive Scanning**: Upload files or directories for immediate analysis
+- **Live Monitoring**: Real-time scan progress with detailed vulnerability reporting
+- **Scan History**: Complete audit trail with exportable reports
+- **AI Neural Security Analyzer**: Dynamic visualization of AI threat detection activity
+
+### ⚡ Performance & Scalability
+- **Parallel Processing**: Multi-threaded scanning with concurrent AI analysis
+- **Real-time Updates**: WebSocket-based progress tracking and live data visualization
+- **Smart Caching**: Intelligent scan result caching with automatic cleanup
+- **Background Processing**: Non-blocking scans with persistent state management
+
+## 🏗️ Architecture
+
+```
+MCP Security Scanner
+├── fastapi_backend/          # FastAPI backend server
+│   ├── main.py              # API server with scan endpoints
+│   ├── routes/              # API route handlers
+│   └── uploads/             # Temporary file storage
+├── frontend/                # React TypeScript frontend
+│   ├── src/components/      # UI components
+│   │   ├── pages/          # Main pages (Dashboard, Scanner, History)
+│   │   └── ui/             # Reusable UI components
+│   └── src/services/       # API client services
+├── mcp_scanner/            # Core scanning engine
+│   ├── analyzers/          # Static and AI analyzers
+│   ├── rules/              # Vulnerability detection rules
+│   ├── models/             # Data models and schemas
+│   └── scanner.py          # Main scanner orchestrator
+└── tests/                  # Test files and AI attack samples
+    └── ai_attacks/         # Comprehensive AI attack test cases
+```
 
 ## 📋 Requirements
 
+### Backend
 - Python 3.8+
-- OpenAI API key (optional, for AI analysis)
+- FastAPI
+- SQLite (included)
 
-## 🛠️ Installation
+### Frontend  
+- Node.js 16+
+- React 18+
+- TypeScript
+- Tailwind CSS
 
-### Development Setup
+### AI Providers (Optional)
+- OpenAI API key
+- Anthropic Claude API key  
+- Google Gemini API key
+
+## 🛠️ Installation & Setup
+
+### Quick Start
 ```bash
 # Clone repository
-git clone https://github.com/yourusername/mcp-security-scanner.git
-cd mcp-security-scanner
+git clone <repository-url>
+cd MCP_security
 
-# Create virtual environment
+# Start the application (runs both backend and frontend)
+./start_fastapi.sh
+
+# Access the application
+# Frontend: http://localhost:3000
+# Backend API: http://localhost:8000
+```
+
+### Manual Setup
+
+#### Backend Setup
+```bash
+# Create and activate virtual environment
 python -m venv venv
-source venv/bin/activate.fish  # For fish shell
+source venv/bin/activate  # Linux/Mac
+# or
+venv\Scripts\activate     # Windows
 
 # Install dependencies
 pip install -r requirements.txt
 
-# Install in development mode
-pip install -e .
+# Start FastAPI server
+cd fastapi_backend
+uvicorn main:app --reload --host 0.0.0.0 --port 8000
 ```
 
-## 🚀 Quick Start
-
-### Basic Usage
+#### Frontend Setup
 ```bash
-# Scan a directory with default settings
-mcp-scanner scan /path/to/mcp/project
+# Install Node.js dependencies
+cd frontend
+npm install
 
-# Scan with static analysis only (no AI)
-mcp-scanner scan /path/to/project --static-only
+# Start React development server
+npm start
+```
 
-# Scan with AI analysis (requires OpenAI API key)
-export OPENAI_API_KEY="your-api-key"
-mcp-scanner scan /path/to/project
+## 🚀 Usage
 
-# Filter by severity
-mcp-scanner scan /path/to/project --severity CRITICAL,HIGH
+### Web Interface
+1. **Upload Files**: Drag and drop files or folders onto the scanner interface
+2. **Configure Scan**: Select analysis type (Static, AI, or Hybrid)
+3. **Monitor Progress**: Watch real-time scanning progress with vulnerability detection
+4. **Review Results**: Examine detailed vulnerability reports with severity classifications
+5. **Export Reports**: Download scan results in JSON or other formats
 
-# Output to file
-mcp-scanner scan /path/to/project --output report.json --output-format json
+### API Endpoints
+```bash
+# Upload and scan files
+POST /api/scanner/upload
+
+# Get scan results
+GET /api/scanner/results/{scan_id}
+
+# Monitor active scans
+GET /api/scanner/active
+
+# Dashboard metrics
+GET /api/dashboard/metrics
+
+# Scan history
+GET /api/scanner/recent
 ```
 
 ### Command Line Interface
-
-#### Scan Command
 ```bash
-mcp-scanner scan [OPTIONS] FOLDER_PATH
+# Direct scanner usage (if installed as package)
+mcp-scanner scan /path/to/project
 
-Options:
-  --output-format [table|json|markdown]  Output format (default: table)
-  --output PATH                          Output file path
-  --static-only                          Use only static analysis
-  --ai-only                              Use only AI analysis  
-  --severity TEXT                        Filter by severity (CRITICAL,HIGH,MEDIUM,LOW)
-  --ignore TEXT                          Ignore patterns (can be used multiple times)
-  --api-key TEXT                         OpenAI API key
-  --model TEXT                           AI model to use (default: gpt-4)
-  --verbose                              Enable verbose output
-  --help                                 Show help message
-```
-
-#### Other Commands
-```bash
-# Show all available security rules
-mcp-scanner list-rules
-
-# Show version information
-mcp-scanner version
-```
-
-## Quick Start
-
-```bash
-# Basic scan
-mcp-scanner scan /path/to/mcp-server
+# With specific AI provider
+export OPENAI_API_KEY="your-key"
+mcp-scanner scan /path/to/project --ai-provider openai
 
 # Static analysis only
-mcp-scanner scan /path/to/mcp-server --static-only
-
-# AI analysis with custom API key
-mcp-scanner scan /path/to/mcp-server --ai-only --api-key sk-...
-
-# Filter by severity
-mcp-scanner scan /path/to/mcp-server --severity critical,high
-
-# Custom output format
-mcp-scanner scan /path/to/mcp-server --output-format json > report.json
+mcp-scanner scan /path/to/project --static-only
 ```
 
-## Configuration
+## 🔍 Vulnerability Detection
 
-Set your OpenAI API key:
-```bash
-export OPENAI_API_KEY=sk-your-api-key-here
-```
+### Static Analysis (27 Categories)
+- **Command Injection**: OS command execution with user input
+- **SQL Injection**: Database query vulnerabilities
+- **Path Traversal**: File system access control bypass
+- **Hardcoded Credentials**: API keys, passwords, tokens in source code
+- **Cryptographic Issues**: Weak algorithms, hardcoded keys
+- **Input Validation**: Missing sanitization, XSS vulnerabilities
+- **Authentication Bypass**: Missing decorators, weak session management
+- **File Security**: Unsafe operations, pickle deserialization
+- **Network Security**: HTTP usage, disabled SSL verification
+- **Configuration Issues**: Insecure settings, exposed debug modes
 
-## CLI Options
+### AI-Specific Attacks (30+ Categories)
+- **Prompt Injection**: Direct instruction override, context manipulation
+- **Jailbreak Attacks**: DAN, STAN, AIM, role-playing exploits
+- **Model Manipulation**: Adversarial examples, model inversion
+- **Data Poisoning**: Training data corruption, backdoor injection
+- **Context Attacks**: Memory exploitation, chain-of-thought manipulation
+- **System Exploits**: Prompt leakage, template injection
+- **Advanced Techniques**: Unicode obfuscation, gradient attacks
+- **Distributed Attacks**: Federated learning, Byzantine attacks
 
-- `--static-only`: Run only static analysis
-- `--ai-only`: Run only AI analysis
-- `--output-format`: Output format (json, table, markdown)
-- `--severity`: Filter by severity (critical, high, medium, low)
-- `--verbose`: Verbose output
-- `--ignore-patterns`: File patterns to ignore
-- `--config`: Custom config file path
-- `--api-key`: OpenAI API key
+## 📊 Dashboard Features
 
-## Project Structure
+### Neural Threat Matrix
+- **Real-time Metrics**: Live vulnerability counts and severity distribution
+- **Scan Activity**: Current and historical scan statistics
+- **Threat Visualization**: Interactive charts and threat level indicators
 
-```
-mcp-security-scanner/
-├── mcp_scanner/           # Main package
-│   ├── cli.py            # CLI interface
-│   ├── scanner.py        # Core scanner logic
-│   ├── rules/            # Vulnerability detection rules
-│   ├── analyzers/        # Static and AI analyzers
-│   ├── models/           # Data models
-│   ├── utils/            # Utilities
-│   └── config/           # Configuration files
-├── tests/                # Test files
-├── requirements.txt      # Dependencies
-└── setup.py             # Package setup
-```
+### AI Neural Security Analyzer
+- **Brain Visualization**: Dynamic neural network simulation showing AI analysis activity
+- **Region Monitoring**: Pattern recognition, memory recall, decision-making, and learning modules
+- **Live Activity Log**: Real-time vulnerability detection with confidence scoring
+- **Multi-Model Support**: OpenAI, Claude, and Gemini integration with model switching
 
-## Development
-
-1. Clone the repository
-2. Install dependencies: `pip install -r requirements.txt`
-3. Install in development mode: `pip install -e .`
-4. Run tests: `python -m pytest tests/`
-
-## 🔍 Vulnerability Types
-
-### 1. Command Injection (CRITICAL)
-- OS command execution with user input
-- Subprocess calls with shell=True
-- Eval/exec with user data
-
-**Example Detection:**
-```python
-# Detected as CRITICAL
-os.system(f"rm {user_input}")
-subprocess.call(user_command, shell=True)
-```
-
-### 2. SQL Injection (HIGH) 
-- String concatenation in SQL queries
-- Missing parameterized queries
-- ORM raw query vulnerabilities
-
-**Example Detection:**
-```python
-# Detected as HIGH
-cursor.execute(f"SELECT * FROM users WHERE id = {user_id}")
-```
-
-### 3. Tool Poisoning (HIGH)
-- Hidden Unicode characters in tool names
-- Suspicious base64 content
-- Tool description manipulation
-- Homograph attacks
-
-**Example Detection:**
-```json
-{
-  "name": "admin_tool‌‍",  // Hidden Unicode characters
-  "description": "VGhpcyBpcyBoaWRkZW4gY29udGVudA=="  // Base64 content
-}
-```
-
-### 4. Authentication Issues (HIGH)
-- Missing authentication decorators
-- Hardcoded credentials
-- Weak session management
-- Authentication bypass
-
-### 5. Credential Management (CRITICAL)
-- Hardcoded API keys
-- Exposed database passwords
-- AWS credentials in code
-- JWT secrets in source
-
-### 6. File Security (HIGH)
-- Path traversal vulnerabilities
-- Unsafe file operations
-- Pickle deserialization
-- Zip slip attacks
-
-### 7. Input Validation (MEDIUM)
-- Missing input validation
-- Weak regex patterns
-- Direct request data usage
-- XSS vulnerabilities
-
-### 8. Prompt Injection (HIGH)
-- Direct user input to LLM
-- System prompt exposure
-- Instruction override attempts
-- Context injection
-
-### 9. Cryptography Issues (MEDIUM)
-- Weak algorithms (MD5, SHA1, DES)
-- Hardcoded encryption keys
-- Small RSA key sizes
-- Missing salt in hashes
-
-### 10. Network Security (MEDIUM)
-- HTTP instead of HTTPS
-- SSL verification disabled
-- CORS wildcards
-- Missing security headers
-
-## 📊 Example Output
-
-### Table Format
-```
-MCP Security Scanner Report
-Generated: 2025-07-14 13:44:50
-Target: /path/to/project
-Duration: 0.5s
-
-╭─ Vulnerability Summary ──────────────────────────────────────╮
-│ Critical: 5                                                  │
-│ High: 12                                                     │
-│ Medium: 3                                                    │
-│ Low: 0                                                       │
-╰──────────────────────────────────────────────────────────────╯
-
-                    Vulnerabilities Found                     
-┏━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━┓
-┃ Severity   ┃ Type            ┃ File                 ┃ Line   ┃
-┡━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━┩
-│ CRITICAL   │ Command         │ server.py            │   45   │
-│            │ Injection       │                      │        │
-│ CRITICAL   │ Credentials     │ config.py            │   12   │
-│ HIGH       │ SQL Injection   │ database.py          │   78   │
-└────────────┴─────────────────┴──────────────────────┴────────┘
-```
-
-### JSON Format
-```json
-{
-  "target_path": "/path/to/project",
-  "start_time": "2025-07-14T13:44:50.123456",
-  "end_time": "2025-07-14T13:44:50.654321", 
-  "scan_duration": 0.53,
-  "files_scanned": 25,
-  "total_vulnerabilities": 20,
-  "vulnerabilities": [
-    {
-      "id": "command_injection_server.py_45_os_system_concat",
-      "type": "command_injection",
-      "severity": "CRITICAL",
-      "file_path": "/path/to/project/server.py",
-      "line_number": 45,
-      "code_snippet": "os.system(f'rm {filename}')",
-      "description": "Direct command execution with string concatenation",
-      "recommendation": "Use subprocess with parameterized arguments",
-      "confidence": 95,
-      "cwe_id": "CWE-78",
-      "rule_name": "command_injection"
-    }
-  ]
-}
-```
+### Scan Management
+- **Upload Interface**: Drag-and-drop file upload with progress tracking
+- **Real-time Progress**: Live scan status with file-by-file progress
+- **Vulnerability Preview**: Immediate vulnerability detection as scanning progresses
+- **History Management**: Complete scan audit trail with detailed reports
 
 ## ⚙️ Configuration
 
 ### Environment Variables
 ```bash
-# OpenAI API Configuration
-export OPENAI_API_KEY="your-openai-api-key"
-export OPENAI_MODEL="gpt-4"  # Optional, defaults to gpt-4
+# AI Provider API Keys
+export OPENAI_API_KEY="your-openai-key"
+export ANTHROPIC_API_KEY="your-claude-key"  
+export GEMINI_API_KEY="your-gemini-key"
 
-# Scanner Configuration  
-export MCP_SCANNER_IGNORE_PATTERNS="*.log,temp/*"
-export MCP_SCANNER_MAX_FILE_SIZE="1048576"  # 1MB limit
+# Database Configuration
+export DATABASE_URL="sqlite:///./mcp_security.db"
+
+# Scanner Settings
+export MAX_FILE_SIZE="10485760"  # 10MB limit
+export SCAN_TIMEOUT="1800"       # 30 minute timeout
 ```
 
-### Ignore Patterns
-Create a `.mcp-ignore` file in your project root:
-```
-# Ignore patterns (gitignore-style)
-*.pyc
-__pycache__/
-.git/
-node_modules/
-*.log
-temp/
+### Frontend Configuration
+```bash
+# API Configuration (frontend/.env)
+REACT_APP_API_URL=http://localhost:8000
+REACT_APP_ENABLE_DEBUG=false
 ```
 
 ## 🧪 Testing
 
-### Run Tests
-```bash
-# Test the scanner with provided test files
-mcp-scanner scan tests/test_files/ --static-only
+### AI Attack Test Files
+The project includes comprehensive test files for AI security validation:
 
-# Should detect ~48 vulnerabilities across test files
+```bash
+# Test files location
+tests/ai_attacks/
+├── prompt_injection_basic.py      # Basic prompt injection techniques
+├── advanced_prompt_attacks.js     # Sophisticated AI manipulation
+├── model_manipulation.py          # Advanced model exploitation  
+├── mcp_ai_exploitation.py         # MCP-specific AI exploits
+├── llm_jailbreak_collection.json  # Comprehensive jailbreak database
+└── data_poisoning_attacks.py      # Training data corruption attacks
 ```
 
-### Test Files
-The project includes test files with known vulnerabilities:
-- `tests/test_files/vulnerable_mcp_server.py` - Python vulnerabilities
-- `tests/test_files/mcp_config.json` - MCP configuration issues
-- `tests/test_files/additional_vulns.py` - Additional test cases
-- `tests/test_files/insecure_config.json` - Insecure configurations
+### Running Tests
+```bash
+# Test with provided AI attack files
+# Upload tests/ai_attacks/ folder through web interface
+
+# Expected results:
+# - 11 vulnerabilities in advanced_prompt_attacks.js
+# - 10 vulnerabilities in data_poisoning_attacks.py  
+# - 27 vulnerabilities in mcp_ai_exploitation.py
+```
+
+## 📈 Performance
+
+### Benchmarks
+- **Small Projects** (< 50 files): 1-3 seconds
+- **Medium Projects** (50-200 files): 3-10 seconds
+- **Large Projects** (200+ files): 10-30 seconds
+- **AI Analysis**: +2-5 seconds per file (depending on provider)
+
+### Optimization
+- **Parallel Processing**: Multi-threaded static and AI analysis
+- **Smart Caching**: Results cached with automatic cleanup
+- **File Filtering**: Automatic exclusion of binary files and common ignore patterns
+- **Progressive Loading**: Real-time results as scanning progresses
+
+## 🔒 Security Considerations
+
+### Safe for Production
+- ✅ No hardcoded API keys or credentials
+- ✅ Environment variable configuration
+- ✅ Secure file upload handling
+- ✅ Automatic temporary file cleanup
+- ✅ SQL injection prevention with parameterized queries
+
+### API Key Management
+- Store API keys in environment variables
+- Use secure key management systems in production
+- Monitor API usage and implement rate limiting
+- Rotate keys regularly
+
+### Data Privacy
+- Files are processed locally and temporarily
+- No data transmitted to third parties (except AI provider APIs)
+- Automatic cleanup of uploaded files and scan results
+- SQLite database stores only scan metadata
 
 ## 🤝 Contributing
 
-### Development Guidelines
-1. **Security Rules**: Extend `BaseRule` class for new vulnerability types
-2. **Patterns**: Add regex patterns to `mcp_scanner/config/patterns.py`
-3. **Tests**: Include test cases for new rules in `tests/`
-4. **Documentation**: Update README and docstrings
+### Development Setup
+```bash
+# Backend development
+cd fastapi_backend
+pip install -e .
+uvicorn main:app --reload
 
-### Code Quality
-- Follow PEP 8 style guidelines
-- Use type hints throughout
-- Write comprehensive docstrings
-- Include logging for debugging
-- Maintain test coverage
+# Frontend development  
+cd frontend
+npm install
+npm start
 
-### Adding New Rules
+# Run both with hot reload
+./start_fastapi.sh
+```
+
+### Adding New Vulnerability Rules
 ```python
+# Example: mcp_scanner/rules/my_custom_rule.py
 from .base_rule import BaseRule
 from ..models.vulnerability import VulnerabilitySeverity, VulnerabilityType
 
 class MyCustomRule(BaseRule):
     @property
     def name(self) -> str:
-        return "my_custom_rule"
+        return "my_custom_vulnerability"
     
-    @property 
+    @property
     def severity(self) -> VulnerabilitySeverity:
         return VulnerabilitySeverity.HIGH
         
     def get_patterns(self) -> Dict[str, str]:
         return {
-            'my_pattern': r'dangerous_function\([^)]*\)'
+            'dangerous_pattern': r'dangerous_function\([^)]*user_input[^)]*\)'
         }
 ```
-
-## 📈 Performance
-
-### Benchmarks
-- **Small Projects** (< 100 files): ~1-2 seconds
-- **Medium Projects** (100-1000 files): ~5-15 seconds  
-- **Large Projects** (1000+ files): ~30-60 seconds
-
-### Optimization Tips
-- Use `--static-only` for faster scanning without AI
-- Set appropriate file size limits
-- Use ignore patterns to exclude large binary files
-- Enable parallel processing (enabled by default)
-
-## 🔒 Security Considerations
-
-### API Key Safety
-- Never commit API keys to version control
-- Use environment variables or secure key management
-- Consider rate limiting for OpenAI API calls
-- Monitor API usage and costs
-
-### False Positives
-- Review high-confidence (>90%) vulnerabilities first
-- Use context to determine if issues are exploitable
-- Consider implementing allow-lists for known safe patterns
-- Regularly update patterns to reduce false positives
 
 ## 📄 License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-## 🙏 Acknowledgments
-
-- [Click](https://click.palletsprojects.com/) for CLI framework
-- [Rich](https://rich.readthedocs.io/) for beautiful terminal output
-- [OpenAI](https://openai.com/) for AI-powered analysis
-- [Model Context Protocol](https://github.com/anthropics/model-context-protocol) for MCP specifications

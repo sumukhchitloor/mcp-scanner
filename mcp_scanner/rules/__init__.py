@@ -3,14 +3,12 @@
 from .base_rule import BaseRule
 from .secrets import SecretsRule
 from .dangerous_functions import DangerousFunctionsRule
-from .dependency_scanner import DependencyVulnerabilityRule
 from .insecure_configuration import InsecureConfigurationRule
 
 # Focused rules for high-confidence detections only
 ALL_RULES = [
     SecretsRule,                    # CRITICAL: API keys, credentials, private keys
     DangerousFunctionsRule,         # HIGH: Command injection, code execution  
-    DependencyVulnerabilityRule,    # HIGH: Known vulnerable dependencies
     InsecureConfigurationRule,      # HIGH: Dangerous configuration settings
 ]
 
@@ -42,7 +40,6 @@ __all__ = [
     'BaseRule',
     'SecretsRule',
     'DangerousFunctionsRule', 
-    'DependencyVulnerabilityRule',
     'InsecureConfigurationRule',
     'ALL_RULES',
     'get_all_rules',

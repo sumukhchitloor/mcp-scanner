@@ -120,7 +120,7 @@ class SecurityScanner:
                         self.ai_analyzer = AIAnalyzer(
                             provider=self.ai_provider,
                             model=self.ai_model,
-                            max_workers=1  # Conservative for API limits
+                            max_workers=5  # Optimized for M3 Pro performance
                         )
                     
                     # Test connection first
@@ -336,7 +336,7 @@ class SecurityScanner:
         from collections import defaultdict
         import os
         
-        MAX_AI_FILES = 25  # Increased from 20 for better coverage
+        MAX_AI_FILES = 50  # Increased for better coverage
         
         # Skip files that are definitely not worth AI analysis
         def should_skip_file(file_path: str) -> bool:

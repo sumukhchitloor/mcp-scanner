@@ -222,6 +222,27 @@ PROJECT_SUMMARY.md
 .github/
 
 # ======================================================================
+# Node.js / Frontend
+# ======================================================================
+
+# Node.js dependencies
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Build outputs
+frontend/build/
+frontend/dist/
+.next/
+out/
+
+# Environment files
+frontend/.env
+frontend/.env.local
+frontend/.env.production
+
+# ======================================================================
 # Package Management
 # ======================================================================
 
@@ -237,3 +258,12 @@ uv.lock
 # Requirements backups
 requirements*.txt.bak
 requirements*.txt.old
+
+# Database files (SQLite)
+*.db
+mcp_security.db
+
+# Upload and scan result directories  
+fastapi_backend/uploads/
+fastapi_backend/scan_results/
+fastapi_backend/active_scans.json

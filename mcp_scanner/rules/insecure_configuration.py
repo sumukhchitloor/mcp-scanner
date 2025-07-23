@@ -75,7 +75,6 @@ class InsecureConfigurationRule(BaseRule):
             
             # Container security
             'docker_privileged_mode': r'privileged\s*[=:]\s*true',
-            'docker_no_user': r'FROM\s+[^\n]*\n(?!.*USER\s)',
             'docker_run_as_root': r'USER\s+(?:0|root)',
             
             # File permissions
@@ -117,7 +116,6 @@ class InsecureConfigurationRule(BaseRule):
             'azure_public_storage': "Azure storage configured for public access",
             'gcp_public_bucket': "GCP bucket configured for public access",
             'docker_privileged_mode': "Docker container configured in privileged mode",
-            'docker_no_user': "Docker container running as root (no USER directive)",
             'docker_run_as_root': "Docker container explicitly running as root",
             'file_permissions_777': "File permissions set to world-writable (777)",
             'file_permissions_666': "File permissions set to world-writable (666)",
@@ -156,7 +154,6 @@ class InsecureConfigurationRule(BaseRule):
             'azure_public_storage': "Review and restrict Azure storage permissions",
             'gcp_public_bucket': "Review and restrict GCP bucket permissions",
             'docker_privileged_mode': "Remove privileged mode unless absolutely necessary",
-            'docker_no_user': "Add USER directive to run as non-root user",
             'docker_run_as_root': "Configure container to run as non-root user",
             'file_permissions_777': "Use more restrictive file permissions",
             'file_permissions_666': "Use more restrictive file permissions",
@@ -195,7 +192,6 @@ class InsecureConfigurationRule(BaseRule):
             'azure_public_storage': 90,
             'gcp_public_bucket': 90,
             'docker_privileged_mode': 85,
-            'docker_no_user': 80,
             'docker_run_as_root': 85,
             'file_permissions_777': 90,
             'file_permissions_666': 90,
